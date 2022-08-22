@@ -34,7 +34,7 @@ test("renders learn react link", async () => {
   expect(postB).toBeInTheDocument();
 });
 
-function makeFakePost(id: number, title: string) {
+export function makeFakePost(id: number, title: string) {
   return {
     id,
     title,
