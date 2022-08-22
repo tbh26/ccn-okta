@@ -13,14 +13,14 @@ export default function HomePage() {
     (async () => {
       // async/await syntax!
       //
-      // debugger;
       // console.debug('before breakpoint');
-      setState({status: FetchStateStatus.Loading}); // debugger breakpoint
+      setState({status: FetchStateStatus.Loading}); // set debugger breakpoint?
       // console.debug('after breakpoint');
       try {
         const res = await axios.get(
           "https://codaisseur-coders-network.herokuapp.com/posts"
         );
+        // debugger; // so you can see/check the response
         setState({status: FetchStateStatus.Success, data: res.data});
       } catch (error) {
         setState({status: FetchStateStatus.Error, error});
