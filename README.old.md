@@ -1,2 +1,0 @@
-# ccn-okta
-codaisseur react
