@@ -46,3 +46,21 @@ function makeFakePost(id: number, title: string) {
     post_likes: [],
   };
 }
+
+test("some failing test case", async function () {
+  (axios.get as any).mockImplementation(() =>
+    Promise.reject(new Error("Oops, request failed!"))
+  );
+
+  await act(async () => {
+    render(<HomePage />);
+  });
+  const pageTitleEl = screen.getByText("Codaisseur Coders Network");
+  expect(pageTitleEl).toBeInTheDocument();
+  screen.debug();
+  const fakeposts = screen.queryByText("Fake post");
+  expect(fakeposts).toBeNull();
+  // const pElement = screen.getAllByRole('paragraph');
+  // expect(pElement).toContain('ERROR');
+  expect(screen.getByText('ERROR!')).toBeInTheDocument();
+});
