@@ -4,8 +4,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Routes, Route, Link as RouterLink } from "react-router-dom";
 
 import HomePage from "./pages/home/HomePage";
-// import SignupPage from "./pages/auth/SignupPage";
-// import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
+import LoginPage from "./pages/auth/LoginPage";
 
 export default function App() {
   return (
@@ -19,9 +19,9 @@ export default function App() {
             color="inherit"
             aria-label="menu"
           >
-            <HomeIcon />
+            <HomeIcon/>
           </IconButton>
-          <div style={{ flexGrow: 1 }} />
+          <div style={{flexGrow: 1}}/>
           <Button color="inherit" component={RouterLink} to="/signup">
             Signup
           </Button>
@@ -30,11 +30,12 @@ export default function App() {
           </Button>
         </Toolbar>
       </AppBar>
-      <div style={{ height: "2rem" }} />
+      <div style={{height: "2rem"}}/>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        {/*<Route path="/signup" element={<SignupPage />} />*/}
-        {/*<Route path="/login" element={<LoginPage />} />*/}
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/signup" element={<SignupPage/>}/>
+        {/*<Route path="/auth" element={<LoginPage />} />*/}
+        <Route path="/login" element={<LoginPage/>}/>
       </Routes>
     </div>
   );
