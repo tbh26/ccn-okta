@@ -33,7 +33,7 @@ export default function HomePage() {
       <Typography variant="h3" component="h1">
         Codaisseur Coders Network
       </Typography>
-      <p>Welcome! :)</p>
+      {/*<p>Welcome! :)</p>*/}
       {state.status === FetchStateStatus.Loading && <p>Loading...</p>}
       {state.status === FetchStateStatus.Error && <p>ERROR!</p>}
       {state.status === FetchStateStatus.Success && (
