@@ -1,25 +1,25 @@
 // src/pages/home/HomePage.tsx
 import React, { useEffect, useState } from "react";
 
-import { Typography, Container, Grid, Card, CardContent } from "@mui/material";
-import { FetchState } from '../../util/fetchstate';
+import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import { FetchState, FetchStateStatus } from '../../util/fetchstate';
 import { PostsResponse } from '../../lib/model';
 import axios from 'axios';
 
 export default function HomePage() {
-  const [state, setState] = useState<FetchState<PostsResponse>>({status: "loading"});
+  const [state, setState] = useState<FetchState<PostsResponse>>({status: FetchStateStatus.Loading});
 
   useEffect(() => {
     (async () => {
       // async/await syntax
-      setState({status: "loading"});
+      setState({status: FetchStateStatus.Loading});
       try {
         const res = await axios.get(
           "https://codaisseur-coders-network.herokuapp.com/posts"
         );
-        setState({status: "success", data: res.data});
+        setState({status: FetchStateStatus.Success, data: res.data});
       } catch (error) {
-        setState({status: "error", error});
+        setState({status: FetchStateStatus.Error, error});
       }
     })();
   }, []);
@@ -30,9 +30,9 @@ export default function HomePage() {
         Codaisseur Coders Network
       </Typography>
       <p>Welcome! :)</p>
-      {state.status === "loading" && <p>Loading...</p>}
-      {state.status === "error" && <p>ERROR!</p>}
-      {state.status === "success" && (
+      {state.status === FetchStateStatus.Loading && <p>Loading...</p>}
+      {state.status === FetchStateStatus.Error && <p>ERROR!</p>}
+      {state.status === FetchStateStatus.Success && (
         <Grid container spacing={3}>
           {state.data.rows.map((post) => {
             return (
