@@ -11,8 +11,12 @@ export default function HomePage() {
 
   useEffect(() => {
     (async () => {
-      // async/await syntax
-      setState({status: FetchStateStatus.Loading});
+      // async/await syntax!
+      //
+      // debugger;
+      // console.debug('before breakpoint');
+      setState({status: FetchStateStatus.Loading}); // debugger breakpoint
+      // console.debug('after breakpoint');
       try {
         const res = await axios.get(
           "https://codaisseur-coders-network.herokuapp.com/posts"
