@@ -49,3 +49,31 @@ export function withFetchData<Data>(url: string) {
     };
   };
 }
+
+type FetchDataProps<Data> = {
+  url: string;
+  children: (fetchState: FetchState<Data>) => JSX.Element; // (or else React.ReactNode)
+};
+
+export function FetchData<Data>({
+                                          url,
+                                          children,
+                                        }: FetchDataProps<Data>) {
+  const [state, setState] = useState<FetchState<Data>>({
+    status: FetchStateStatus.Loading,
+  });
+
+  useEffect(() => {
+    (async () => {
+      setState({ status: FetchStateStatus.Loading });
+      try {
+        const res = await axios.get(url);
+        setState({ status: FetchStateStatus.Success, data: res.data });
+      } catch (error) {
+        setState({ status: FetchStateStatus.Error, error });
+      }
+    })();
+  }, [url]);
+
+  return children(state);
+}

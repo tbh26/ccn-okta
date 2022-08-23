@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Toolbar, IconButton, Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { Routes, Route, Link as RouterLink } from "react-router-dom";
-
-import { HomePage, HomePage2 } from "./pages/home/HomePage";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { HomePage, HomePage2, HomePage3 } from "./pages/home/HomePage";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 
+const deafultHome = "/home2";
+
 export default function App() {
+  const loc = useLocation();
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (loc.pathname === "/") {
+      navigate(deafultHome);
+    }
+  },[loc])
   return (
     <div>
       <AppBar position="static">
@@ -32,8 +41,10 @@ export default function App() {
       </AppBar>
       <div style={{height: "2rem"}}/>
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
+        <Route path="/"  element={<HomePage/>}/>
+        <Route path="/home" element={<HomePage/>}/>
         <Route path="/home2" element={<HomePage2/>}/>
+        <Route path="/home3" element={<HomePage3/>}/>
         <Route path="/signup" element={<SignupPage/>}/>
         {/*<Route path="/auth" element={<LoginPage />} />*/}
         <Route path="/login" element={<LoginPage/>}/>
