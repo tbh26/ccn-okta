@@ -1,32 +1,34 @@
 // src/pages/home/HomePage.tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
-import { FetchState, FetchStateStatus } from '../../util/fetchstate';
+import useFetchData from '../../lib/useFetchData';
+import { FetchStateStatus } from '../../util/fetchstate';
 import { PostsResponse } from '../../lib/model';
-import axios from 'axios';
+// import axios from 'axios';
+
 
 export default function HomePage() {
-  const [state, setState] = useState<FetchState<PostsResponse>>({status: FetchStateStatus.Loading});
+  const apiUrl = 'https://codaisseur-coders-network.herokuapp.com/posts';
+  const state = useFetchData<PostsResponse>(apiUrl);
+  // const [state, setState] = useState<FetchState<PostsResponse>>({status: FetchStateStatus.Loading});
 
-  useEffect(() => {
-    (async () => {
-      // async/await syntax!
-      //
-      // console.debug('before breakpoint');
-      setState({status: FetchStateStatus.Loading}); // set debugger breakpoint?
-      // console.debug('after breakpoint');
-      try {
-        const res = await axios.get(
-          "https://codaisseur-coders-network.herokuapp.com/posts"
-        );
-        // debugger; // so you can see/check the response
-        setState({status: FetchStateStatus.Success, data: res.data});
-      } catch (error) {
-        setState({status: FetchStateStatus.Error, error});
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     // async/await syntax!
+  //     //
+  //     // console.debug('before breakpoint');
+  //     setState({status: FetchStateStatus.Loading}); // set debugger breakpoint?
+  //     // console.debug('after breakpoint');
+  //     try {
+  //       const res = await axios.get( apiUrl );
+  //       // debugger; // so you can see/check the response
+  //       setState({status: FetchStateStatus.Success, data: res.data});
+  //     } catch (error) {
+  //       setState({status: FetchStateStatus.Error, error});
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <Container fixed>
