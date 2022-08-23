@@ -54,7 +54,9 @@ export function FetchDataCacheProvider(props: { children?: React.ReactNode }) {
   //
   const removeItem = (url: string) => {
     setCache((currentCache: CacheItem[]) => {
-      return currentCache.filter((item) => item.url === url).map((item) => item);
+      const newCache = currentCache.filter((item) => item.url !== url).map((item) => item);
+      console.info("new cache: ", newCache);
+      return newCache;
     });
   };
 

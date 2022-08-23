@@ -14,21 +14,23 @@ export function HomePage() {
   const someUrl = 'http://foo.bar';
   const [clickCount, setClickCount] = useState(1);
 
-  const { cache, addItem, getResultsForUrl } = useContext(FetchDataCacheContext);
+  // const { cache, addItem, getResultsForUrl } = useContext(FetchDataCacheContext);
+  const {cache, addItem, getResultsForUrl, removeItem} = useContext(FetchDataCacheContext);
   console.log("current cache (home page):", cache);
 
   const clickHandler = () => {
     //console.debug('home click handler, count: ', clickCount);
-    addItem(someUrl, { url: someUrl, count: clickCount });
+    addItem(someUrl, {url: someUrl, count: clickCount});
     setClickCount(clickCount + 1); // delay..
-    setTimeout( () => {
+    setTimeout(() => {
       console.debug('get-result-for-url: ', getResultsForUrl(someUrl));
-      },123);
+    }, 123);
   };
 
   const clickHandlerRefetch = () => {
-    //console.debug('home click handler, count: ', clickCount);
-    addItem(someUrl, { url: apiUrl, count: clickCount });
+    //console.debug('data refetch click handler, count: ', clickCount);
+    console.info('data refetch click handler, ditch api-url from cache');
+    removeItem(apiUrl);
     setClickCount(clickCount + 1); // delayed
   };
 
