@@ -74,3 +74,27 @@ export function FetchData<Data>({url, children}: FetchDataProps<Data>) {
 
   return children(state); // jsx!
 }
+
+// function useRefetchData<Data>(url: string): FetchState<Data> & { refetch: () => void } {
+//   const [state, setState] = useState<FetchState<Data>>({
+//     status: FetchStateStatus.Loading,
+//   });
+//
+//   useEffect(() => {
+//     (async () => {
+//       setState({ status: FetchStateStatus.Loading });
+//       try {
+//         const res = await axios.get(url);
+//         setState({ status: FetchStateStatus.Success, data: res.data });
+//       } catch (error) {
+//         setState({ status: FetchStateStatus.Error, error });
+//       }
+//     })();
+//   }, [url]);
+//
+//   // const refetch = () => {
+//   //   removeItem(url);
+//   // };
+//   //
+//   return { ...state, refetch };
+// }

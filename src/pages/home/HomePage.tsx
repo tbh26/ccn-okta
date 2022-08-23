@@ -21,12 +21,24 @@ export function HomePage() {
     //console.debug('home click handler, count: ', clickCount);
     addItem(someUrl, { url: someUrl, count: clickCount });
     setClickCount(clickCount + 1); // delay..
+    setTimeout( () => {
+      console.debug('get-result-for-url: ', getResultsForUrl(someUrl));
+      },123);
+  };
+
+  const clickHandlerRefetch = () => {
+    //console.debug('home click handler, count: ', clickCount);
+    addItem(someUrl, { url: apiUrl, count: clickCount });
+    setClickCount(clickCount + 1); // delayed
   };
 
   return (
     <Container fixed>
       <div>
         <button onClick={clickHandler}>test; adding another item to the cache</button>
+      </div>
+      <div>
+        <button onClick={clickHandlerRefetch}>refetch</button>
       </div>
       <Typography variant="h3" component="h1">
         Codaisseur Coders Network
