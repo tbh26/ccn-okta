@@ -7,7 +7,7 @@ import { HomePage, HomePage2, HomePage3 } from "./pages/home/HomePage";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 
-const defaultHome = "/home2";
+const defaultHome = "/home";
 
 const FakeHome = () => <section>-</section>
 
