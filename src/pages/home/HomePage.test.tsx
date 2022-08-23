@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { act, render, screen } from "@testing-library/react";
 
-import HomePage from "./HomePage";
+import { HomePage } from "./HomePage";
 
 jest.mock("axios");
 
