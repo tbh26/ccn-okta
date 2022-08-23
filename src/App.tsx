@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppBar, Toolbar, IconButton, Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { Routes, Route, Link as RouterLink } from "react-router-dom";
@@ -6,21 +6,27 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HomePage, HomePage2, HomePage3 } from "./pages/home/HomePage";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
+import SunnyIcon from '@mui/icons-material/WbSunny';
+import { ThemeContext } from './lib/theme';
 
 const defaultHome = "/home";
 
 const FakeHome = () => <section>-</section>
 
 export default function App() {
+  const {theme, toggle} = useContext(ThemeContext);
   const loc = useLocation();
   const navigate = useNavigate()
   useEffect(() => {
     if (loc.pathname === "/") {
       navigate(defaultHome);
     }
-  },[loc])
+  }, [loc])
   return (
-    <div>
+    <div style={{
+      backgroundColor: theme.colors.toolbarBackgroundColor,
+      color: theme.colors.textColor
+    }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -31,6 +37,15 @@ export default function App() {
             aria-label="menu"
           >
             <HomeIcon/>
+          </IconButton>
+          <span> &nbsp; </span>
+          <IconButton
+            onClick={toggle}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <SunnyIcon/>
           </IconButton>
           <div style={{flexGrow: 1}}/>
           <Button color="inherit" component={RouterLink} to="/signup">
@@ -43,7 +58,7 @@ export default function App() {
       </AppBar>
       <div style={{height: "2rem"}}/>
       <Routes>
-        <Route path="/" element={<FakeHome />}/>
+        <Route path="/" element={<FakeHome/>}/>
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/home2" element={<HomePage2/>}/>
         <Route path="/home3" element={<HomePage3/>}/>

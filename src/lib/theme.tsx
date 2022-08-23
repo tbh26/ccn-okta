@@ -13,21 +13,20 @@ export type Theme = {
 export const defaultTheme = {
   fontFamily: "sans-serif",
   colors: {
-    backgroundColor: "white",
-    textColor: "#00c",
-    toolbarBackgroundColor: "#555",
+    backgroundColor: "#eee",
+    textColor: "#111",
+    toolbarBackgroundColor: "#ddd",
   },
 };
 
 export const otherTheme = {
   fontFamily: "sans-serif",
   colors: {
-    backgroundColor: "lightgray",
-    textColor: "#0c0",
-    toolbarBackgroundColor: "#333",
+    backgroundColor: "#333",
+    textColor: "#eee",
+    toolbarBackgroundColor: "#111",
   },
 };
-
 
 export const ThemeContext = createContext<{
   theme: Theme;
@@ -51,10 +50,8 @@ export function ThemeProvider(props: { children?: React.ReactNode }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggle }}>
+    <ThemeContext.Provider value={{theme, toggle}}>
       {props.children}
     </ThemeContext.Provider>
-);
+  );
 }
-
-// export const ThemeContext = createContext<Theme>(defaultTheme);

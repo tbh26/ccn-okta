@@ -1,21 +1,19 @@
 // src/pages/home/HomePage.tsx
-import React, { useContext } from "react";
+import React from "react";
 
 import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { FetchData, useFetchData, withFetchData } from '../../lib/useFetchData';
 import { FetchState, FetchStateStatus } from '../../util/fetchstate';
 import { PostsResponse } from '../../lib/model';
-import {ThemeContext } from '../../lib/theme';
 
 const apiUrl = 'https://codaisseur-coders-network.herokuapp.com/posts';
 
 export function HomePage() {
   const state = useFetchData<PostsResponse>(apiUrl);
-  const { theme } = useContext(ThemeContext);
 
   return (
     <Container fixed>
-      <Typography style={{ color: theme!.colors.textColor }} variant="h3" component="h1">
+      <Typography variant="h3" component="h1">
         Codaisseur Coders Network
       </Typography>
       {state.status === FetchStateStatus.Loading && <p>Loading...</p>}
@@ -50,7 +48,7 @@ export function HomePage() {
   );
 }
 
-export const HomePage2 =  withFetchData<PostsResponse>(apiUrl)(function ({fetchState}) {
+export const HomePage2 = withFetchData<PostsResponse>(apiUrl)(function ({fetchState}) {
 
   return (
     <Container fixed>
@@ -109,7 +107,7 @@ export function HomePage3() {
                     <Grid key={post.id} item xs={4}>
                       <Card>
                         <CardContent
-                          style={{ maxHeight: "15rem", overflow: "hidden" }}
+                          style={{maxHeight: "15rem", overflow: "hidden"}}
                         >
                           <Typography gutterBottom variant="h5" component="h2">
                             {post.title}
