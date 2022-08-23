@@ -1,25 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 import { FetchState, FetchStateStatus } from "../util/fetchstate";
+import { FetchDataCacheContext } from './fetchDataCache';
 
 // export default function useFetchData<Data>(url: string) {
 export function useFetchData<Data>(url: string): FetchState<Data> {
   const [state, setState] = useState<FetchState<Data>>({
     status: FetchStateStatus.Loading,
   });
+  const { getResultsForUrl, addItem } = useContext(FetchDataCacheContext);
+  const cachedItem = getResultsForUrl(url);
 
   useEffect(() => {
-    (async () => {
-      setState({ status: FetchStateStatus.Loading });
-      try {
-        const res = await axios.get(url);
-        setState({ status: FetchStateStatus.Success, data: res.data });
-      } catch (error) {
-        setState({ status: FetchStateStatus.Error, error });
-      }
-    })();
-  }, [url]);
+    if (cachedItem) {
+      setState({ status: FetchStateStatus.Success, data: cachedItem.data });
+    } else {
+      (async () => {
+        setState({ status: FetchStateStatus.Loading });
+        try {
+          const res = await axios.get(url);
+          // setState no longer necessary here: it will happen
+          //  automatically when the cachedItem is found
+          addItem(url, res.data);
+        } catch (error) {
+          setState({ status: FetchStateStatus.Error, error });
+        }
+      })();
+    }
+  }, [url, cachedItem, addItem]);
 
   return state;
 }
