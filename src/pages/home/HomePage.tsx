@@ -1,18 +1,33 @@
 // src/pages/home/HomePage.tsx
-import React from "react";
+import React, { useContext, useState } from "react";
 
 import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { FetchData, useFetchData, withFetchData } from '../../lib/useFetchData';
 import { FetchState, FetchStateStatus } from '../../util/fetchstate';
 import { PostsResponse } from '../../lib/model';
+import { FetchDataCacheContext } from '../../lib/fetchDataCache';
 
 const apiUrl = 'https://codaisseur-coders-network.herokuapp.com/posts';
 
 export function HomePage() {
   const state = useFetchData<PostsResponse>(apiUrl);
+  const someUrl = 'http://foo.bar';
+  const [clickCount, setClickCount] = useState(1);
+
+  const { cache, addItem, getResultsForUrl } = useContext(FetchDataCacheContext);
+  console.log("current cache (home page):", cache);
+
+  const clickHandler = () => {
+    //console.debug('home click handler, count: ', clickCount);
+    addItem(someUrl, { url: someUrl, count: clickCount });
+    setClickCount(clickCount + 1); // delay..
+  };
 
   return (
     <Container fixed>
+      <div>
+        <button onClick={clickHandler}>test; adding another item to the cache</button>
+      </div>
       <Typography variant="h3" component="h1">
         Codaisseur Coders Network
       </Typography>

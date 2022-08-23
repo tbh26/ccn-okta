@@ -6,6 +6,7 @@ import React, { createContext, useState } from "react";
 type CacheItem = {
   url: string;
   data: any;
+  updateCount: number;
 };
 
 export type FetchDataStore = {
@@ -31,7 +32,8 @@ export function FetchDataCacheProvider(props: { children?: React.ReactNode }) {
     // using the functional update pattern
     //  to be extra safe we don't lose data when adding
     //  many items in between the same two renders
-    setCache((currentCache) => {
+    setCache( (currentCache: CacheItem[] ) => {
+      /*
       const i = currentCache.findIndex((item) => item.url === url);
       if (i >= 0) {
         const updatedCache = currentCache.slice();
@@ -40,6 +42,22 @@ export function FetchDataCacheProvider(props: { children?: React.ReactNode }) {
       } else {
         return [...currentCache, { url, data }];
       }
+      */
+      let cacheHasEntry = false;
+      let newCache = currentCache.map( (item) => {
+        let itemData = item.data;
+        let count = item.updateCount;
+        if (item.url === url) {
+          cacheHasEntry = true;
+          itemData = data;
+          count += 1;
+        }
+        return { url: item.url, data: itemData, updateCount: count};
+      });
+      if (!cacheHasEntry) {
+        newCache.push({url, data, updateCount: 0});
+      }
+      return newCache;
     });
   };
 
