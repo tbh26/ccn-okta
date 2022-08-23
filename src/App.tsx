@@ -7,14 +7,16 @@ import { HomePage, HomePage2, HomePage3 } from "./pages/home/HomePage";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 
-const deafultHome = "/home2";
+const defaultHome = "/home2";
+
+const FakeHome = () => <section>-</section>
 
 export default function App() {
   const loc = useLocation();
   const navigate = useNavigate()
   useEffect(() => {
     if (loc.pathname === "/") {
-      navigate(deafultHome);
+      navigate(defaultHome);
     }
   },[loc])
   return (
@@ -41,7 +43,7 @@ export default function App() {
       </AppBar>
       <div style={{height: "2rem"}}/>
       <Routes>
-        <Route path="/"  element={<HomePage/>}/>
+        <Route path="/" element={<FakeHome />}/>
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/home2" element={<HomePage2/>}/>
         <Route path="/home3" element={<HomePage3/>}/>

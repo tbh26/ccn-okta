@@ -55,10 +55,7 @@ type FetchDataProps<Data> = {
   children: (fetchState: FetchState<Data>) => JSX.Element; // (or else React.ReactNode)
 };
 
-export function FetchData<Data>({
-                                          url,
-                                          children,
-                                        }: FetchDataProps<Data>) {
+export function FetchData<Data>({url, children}: FetchDataProps<Data>) {
   const [state, setState] = useState<FetchState<Data>>({
     status: FetchStateStatus.Loading,
   });
@@ -75,5 +72,5 @@ export function FetchData<Data>({
     })();
   }, [url]);
 
-  return children(state);
+  return children(state); // jsx!
 }

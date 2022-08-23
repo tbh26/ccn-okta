@@ -5,7 +5,6 @@ import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { FetchData, useFetchData, withFetchData } from '../../lib/useFetchData';
 import { FetchState, FetchStateStatus } from '../../util/fetchstate';
 import { PostsResponse } from '../../lib/model';
-// import axios from 'axios';
 
 const apiUrl = 'https://codaisseur-coders-network.herokuapp.com/posts';
 
@@ -17,7 +16,6 @@ export function HomePage() {
       <Typography variant="h3" component="h1">
         Codaisseur Coders Network
       </Typography>
-      {/*<p>Welcome! :)</p>*/}
       {state.status === FetchStateStatus.Loading && <p>Loading...</p>}
       {state.status === FetchStateStatus.Error && <p>ERROR!</p>}
       {state.status === FetchStateStatus.Success && (
@@ -57,7 +55,6 @@ export const HomePage2 =  withFetchData<PostsResponse>(apiUrl)(function ({fetchS
       <Typography variant="h3" component="h1">
         Codaisseur Coders Network
       </Typography>
-      {/*<p>Welcome! :)</p>*/}
       {fetchState.status === FetchStateStatus.Loading && <p>Loading...</p>}
       {fetchState.status === FetchStateStatus.Error && <p>ERROR!</p>}
       {fetchState.status === FetchStateStatus.Success && (
