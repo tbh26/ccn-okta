@@ -4,6 +4,7 @@ import axios from "axios";
 import { act, render, screen } from "@testing-library/react";
 
 import { HomePage } from "./HomePage";
+import { FetchDataCacheProvider } from '../../lib/fetchDataCache';
 
 jest.mock("axios");
 
@@ -18,7 +19,11 @@ test("renders learn react link", async () => {
   );
 
   await act(async () => {
-    render(<HomePage />);
+    render(
+      <FetchDataCacheProvider>
+        <HomePage/>
+      </FetchDataCacheProvider>
+    );
   });
   const pageTitleEl = screen.getByText("Codaisseur Coders Network");
   expect(pageTitleEl).toBeInTheDocument();
@@ -53,7 +58,12 @@ test("some failing test case", async function () {
   );
 
   await act(async () => {
-    render(<HomePage />);
+    render(
+      <FetchDataCacheProvider>
+        <HomePage/>
+      </FetchDataCacheProvider>
+    );
+    // render(<HomePage />);
   });
   const pageTitleEl = screen.getByText("Codaisseur Coders Network");
   expect(pageTitleEl).toBeInTheDocument();
